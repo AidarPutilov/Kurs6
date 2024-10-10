@@ -15,10 +15,10 @@
                 <a class="nav-link active" aria-current="page" href="/">Главная</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Вторая</a>
+                <a class="nav-link" href="{% url 'main:clientlist' %}">Клиенты</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Третья</a>
+                <a class="nav-link" aria-disabled="true">Третья</a>
               </li>
             </ul>
             {% if user.is_authenticated %}

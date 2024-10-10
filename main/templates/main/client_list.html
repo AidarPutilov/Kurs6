@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% comment %} {% load my_tags %} {% endcomment %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h3>
+    Клиенты
+    <a href="{% url 'main:create_client' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-add bg-light" viewBox="0 0 16 16">
+            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+            <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+        </svg>
+    </a>
+</h3>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ФИО</th>
+        <th scope="col">Электронный адрес</th>
+        <th scope="col">Комментарий</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+      <tr>
+        <td>
+            {{ object.fio }}
+        </td>
+        <td>{{ object.email }}</td>
+        <td>{{ object.comment|truncatechars:100 }}</td>
+        <td>
+            <a href="{% url 'main:update_client' object.pk %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
+                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+                </svg>
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'main:delete_client' object.pk %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-x text-danger" viewBox="0 0 16 16">
+                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708"/>
+                </svg>
+            </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+{% comment %} <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    {% for object in object_list %}
+    <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ object.category }} {{ object.name }}</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">{{ object.price }}<small
+                        class="text-body-secondary fw-light"> руб.</small></h1>
+                <p class="list-unstyled mt-3 mb-4">
+                    {{ object.description|truncatechars:100 }}
+                    {% if object.in_stock %}
+                    <p class="text-body-secondary">В наличии</p>
+                    {% else %}
+                    <p class="text-body-secondary">Отсутсвует</a>
+                    {% endif %}
+                    <p class="text-body-secondary">Автор: {{ object.owner }}</a>
+                </p>
+                <p class="list-unstyled mt-3 mb-4">
+                    {% for v in versions.items %}
+                    {% if v.0 == object.pk %}
+                    Текущая версия: {{ v.1 }}
+                    {% endif %}
+                    {% endfor %}
+                </p>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-primary" href="{% url 'catalog:view_product' object.pk %}">Подробнее</a>
+                    {% if perms.catalog.can_edit_in_stock and perms.catalog.can_edit_description and perms.catalog.can_edit_category or user == object.owner %}
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Действия
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
+                            <li><a class="dropdown-item" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <a class="btn btn-primary" href="{% url 'catalog:update_product' object.pk %}">Удалить</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <a class="w-100 btn btn-lg btn-primary" href="{% url 'catalog:create_product' %}">Добавить</a>
+</div> {% endcomment %}
