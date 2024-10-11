@@ -43,3 +43,7 @@ class ClientUpdateView(UpdateView):
 class ClientDeleteView(DeleteView):
     model = Client
     success_url = reverse_lazy("main:clientlist")
+
+
+# class MessageListView(ListView):
+#     model = Message

@@ -33,29 +33,29 @@ class Client(models.Model):
         verbose_name_plural = 'клиенты'
 
 
-class Massage(models.Model):
-    subject = models.CharField(
-        verbose_name='тема сообщения',
-        max_length=100,
-        help_text='Введите тему'
-    )
-    text = models.TextField(
-        verbose_name='текст сообщения',
-        help_text='Введите текст'
-    )
-    user = models.ForeignKey(
-        AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        verbose_name='пользователь',
-        null=True, blank=True
-    )
+# class Massage(models.Model):
+#     subject = models.CharField(
+#         verbose_name='тема сообщения',
+#         max_length=100,
+#         help_text='Введите тему'
+#     )
+#     text = models.TextField(
+#         verbose_name='текст сообщения',
+#         help_text='Введите текст'
+#     )
+#     user = models.ForeignKey(
+#         AUTH_USER_MODEL,
+#         on_delete=models.CASCADE,
+#         verbose_name='пользователь',
+#         null=True, blank=True
+#     )
 
-    def __str__(self):
-        return self.subject
+#     def __str__(self):
+#         return self.subject
 
-    class Meta:
-        verbose_name = 'сообщение'
-        verbose_name_plural = 'сообщения'
+#     class Meta:
+#         verbose_name = 'сообщение'
+#         verbose_name_plural = 'сообщения'
 
 
 # class Mailing(models.Model):
