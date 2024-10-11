@@ -20,7 +20,7 @@ class ClientListView(ListView):
 #     model = Client
 
 
-class ClientCreateView(CreateView):
+class ClientCreateView(LoginRequiredMixin, CreateView):
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy("main:clientlist")
@@ -40,7 +40,7 @@ class ClientUpdateView(UpdateView):
     success_url = reverse_lazy("main:clientlist")
 
 
-class ClientDeleteView(DeleteView):
+class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
     success_url = reverse_lazy("main:clientlist")
 
