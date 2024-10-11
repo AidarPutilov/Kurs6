@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from main.forms import ClientForm
-from main.models import Client
+from main.forms import ClientForm, MessageForm
+from main.models import Client, Message
 
 
 def index(request):
@@ -45,5 +45,30 @@ class ClientDeleteView(DeleteView):
     success_url = reverse_lazy("main:clientlist")
 
 
-# class MessageListView(ListView):
-#     model = Message
+class MessageListView(ListView):
+    model = Message
+
+
+class MessageCreateView(CreateView):
+    model = Message
+    form_class = MessageForm
+    success_url = reverse_lazy("main:listmessage")
+
+    def form_valid(self, form):
+        """Привязка пользователя к сообщению"""
+        message = form.save()
+        user = self.request.user
+        message.user = user
+        message.save()
+        return super().form_valid(form)
+
+
+class MessageUpdateView(UpdateView):
+    model = Message
+    form_class = MessageForm
+    success_url = reverse_lazy("main:listmessage")
+
+
+class MessageDeleteView(DeleteView):
+    model = Message
+    success_url = reverse_lazy("main:listmessage")

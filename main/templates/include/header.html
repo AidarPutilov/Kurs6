@@ -18,7 +18,7 @@
                 <a class="nav-link" href="{% url 'main:clientlist' %}">Клиенты</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" aria-disabled="true">Третья</a>
+                <a class="nav-link" href="{% url 'main:listmessage' %}">Сообщения</a>
               </li>
             </ul>
             {% if user.is_authenticated %}

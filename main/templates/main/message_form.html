@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% comment %} {% load my_tags %} {% endcomment %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col">
+    <form method="post" enctype="multipart/formdata">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="card">
+                    <h3 class="card-title text-center mt-3 mb-3">
+                        {% if object %}
+                        Редактирование сообщения
+                        {% else %}
+                        Создание сообщения
+                        {% endif %}
+                    </h3>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-success">
+                            {% if object %}
+                            Сохранить
+                            {% else %}
+                            Создать
+                            {% endif %}
+                        </button>
+                        <a class="btn btn-success" href="{% url 'main:listmessage' %}">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% comment %} <div class="col-12">
+    <form method="post" enctype="multipart/formdata">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <h3 class="card-title text-center mb-3">
+                        {% if object %}
+                        Редактирование продукта
+                        {% else %}
+                        Создание продукта
+                        {% endif %}
+                    </h3>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-success">
+                            {% if object %}
+                            Сохранить
+                            {% else %}
+                            Создать
+                            {% endif %}
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            {% if object %}
+            <div class="col-6">
+                <div class="card">
+                    <h3 class="card-title text-center mb-3">
+                        Версии продукта
+                    </h3>
+                    <div class="card-body">
+                        {{ formset.management_form }}
+                        {% for form in formset.forms %}
+                        {{ form|crispy }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </form>
+</div> {% endcomment %}
+
+{% endblock %}
