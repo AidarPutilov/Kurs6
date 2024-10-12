@@ -58,9 +58,66 @@ class Message(models.Model):
         verbose_name_plural = 'сообщения'
 
 
-# class Mailing(models.Model):
-#     pass
+class Mailing(models.Model):
+    PERIODS = (
+        ('day', 'день'),
+        ('week', 'неделя'),
+        ('mon', 'месяц'),
+    )
+    STATUSES = (
+        ('created', 'создана'),
+        ('started', 'запущена'),
+        ('completed', 'завершена'),
+    )
+    name = models.CharField(
+        max_length=100,
+        verbose_name='название',
+        help_text='Введите название рассылки',
+    )
+    time_start = models.TimeField(
+        verbose_name='время отправки',
+        help_text='Введите время (ЧЧ:ММ)',
+    )
+    date_start = models.DateField(
+        verbose_name="дата отправки",
+        help_text='Введите дату (ДД.ММ.ГГ)',
+    )
+    period = models.CharField(
+        max_length=20,
+        choices=PERIODS,
+        verbose_name='периодичность',
+        help_text='Выберите периодичность',
+    )
+    message = models.ForeignKey(
+        Message,
+        on_delete = models.CASCADE,
+        verbose_name='сообщение',
+        help_text='Выберите сообщение',
+    )
+    clients = models.ManyToManyField(
+        Client,
+        related_name='clients',
+        verbose_name='клиенты'
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUSES,
+        verbose_name='статус',
+    )
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name='пользователь',
+        null=True, blank=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'рассылка'
+        verbose_name_plural = 'рассылки'
 
 
-# class Attempt(models.Model):
+# class Log(models.Model):
 #     pass

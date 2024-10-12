@@ -12,7 +12,7 @@ def index(request):
     return render(request, "main/index.html")
 
 
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, ListView):
     model = Client
 
 
@@ -34,7 +34,7 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(LoginRequiredMixin, UpdateView):
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy("main:clientlist")
@@ -45,11 +45,11 @@ class ClientDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("main:clientlist")
 
 
-class MessageListView(ListView):
+class MessageListView(LoginRequiredMixin, ListView):
     model = Message
 
 
-class MessageCreateView(CreateView):
+class MessageCreateView(LoginRequiredMixin, CreateView):
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy("main:listmessage")
@@ -63,12 +63,41 @@ class MessageCreateView(CreateView):
         return super().form_valid(form)
 
 
-class MessageUpdateView(UpdateView):
+class MessageUpdateView(LoginRequiredMixin, UpdateView):
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy("main:listmessage")
 
 
-class MessageDeleteView(DeleteView):
+class MessageDeleteView(LoginRequiredMixin, DeleteView):
     model = Message
     success_url = reverse_lazy("main:listmessage")
+
+
+class MailingListView(LoginRequiredMixin, ListView):
+    model = Message
+
+
+# class MailingCreateView(LoginRequiredMixin, CreateView):
+#     model = Mailing
+#     form_class = MailingForm
+#     success_url = reverse_lazy("main:listmailing")
+
+#     def form_valid(self, form):
+#         """Привязка пользователя к сообщению"""
+#         mailing = form.save()
+#         user = self.request.user
+#         mailing.user = user
+#         mailing.save()
+#         return super().form_valid(form)
+
+
+# class MailingUpdateView(LoginRequiredMixin, UpdateView):
+#     model = Mailing
+#     form_class = MailingForm
+#     success_url = reverse_lazy("main:listmailing")
+
+
+# class MailingDeleteView(LoginRequiredMixin, DeleteView):
+#     model = Mailing
+#     success_url = reverse_lazy("main:listmailing")
