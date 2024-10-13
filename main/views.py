@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from main.forms import ClientForm, MessageForm
-from main.models import Client, Message
+from main.models import Client, Mailing, Message
 
 
 def index(request):
@@ -75,7 +75,7 @@ class MessageDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class MailingListView(LoginRequiredMixin, ListView):
-    model = Message
+    model = Mailing
 
 
 # class MailingCreateView(LoginRequiredMixin, CreateView):

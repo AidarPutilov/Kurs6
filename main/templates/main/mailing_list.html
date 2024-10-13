@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% comment %} {% load my_tags %} {% endcomment %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-
 <h3>
     Рассылки
     {% comment %} <a href="{% url 'main:create_message' %}">
@@ -13,22 +11,26 @@
         </svg>
     </a> {% endcomment %}
 </h3>
-{% for object in object_list %}
-<div class='row'>
-    <div class="card-header">
-        {{ object.name }}
+    <div class='row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3'>
+    {% for object in object_list %}
+        <div class='col'>
+            <div class="card mb-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class='my-0 fw-normal'>{{ object.name }}</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Момент начала рассылки: {{ object.date_start }} {{ object.time_start }}</li>
+                <li class="list-group-item">Периодичность: {{ object.period }}</li>
+                <li class="list-group-item">Сообщение: {{ object.message }}</li>
+                <li class="list-group-item">Клиенты: {{ object.clients }}</li>
+                <li class="list-group-item">Статус: {{ object.status }}</li>
+                <li class="list-group-item">Автор: {{ object.user }}</li>
+            </ul>
+        </div>
     </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{ object.time_start }}</li>
-        <li class="list-group-item">{{ object.date_start }}</li>
-        <li class="list-group-item">{{ object.period }}</li>
-        <li class="list-group-item">{{ object.message }}</li>
-        <li class="list-group-item">{{ object.clients }}</li>
-        <li class="list-group-item">{{ object.status }}</li>
-        <li class="list-group-item">{{ object.user }}</li>
-    </ul>
-</div>
 {% endfor %}
+</div>
+
 
             {% comment %} <a href="{% url 'main:update_message' object.pk %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
