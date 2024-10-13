@@ -129,7 +129,7 @@ class Mailing(models.Model):
         ordering = ("period",)
         permissions = [
             ("can_edit_is_active_mailing", "Can edit active mailing"),
-            ("can_change_clients_mailing", "Can_change_clients_mailing"),
+            ("can_change_clients_mailing", "Can change clients mailing"),
         ]
 
 
