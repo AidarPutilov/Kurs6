@@ -24,6 +24,7 @@ class Client(models.Model):
         verbose_name='пользователь',
         null=True, blank=True
     )
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.fio
@@ -31,6 +32,10 @@ class Client(models.Model):
     class Meta:
         verbose_name = 'клиент'
         verbose_name_plural = 'клиенты'
+        ordering = ("fio",)
+        permissions = [
+            ("can_edit_is_active_client", "can edit active clients"),
+        ]
 
 
 class Message(models.Model):
@@ -56,6 +61,7 @@ class Message(models.Model):
     class Meta:
         verbose_name = 'сообщение'
         verbose_name_plural = 'сообщения'
+        ordering = ("subject",)
 
 
 class Mailing(models.Model):
@@ -82,9 +88,14 @@ class Mailing(models.Model):
         verbose_name="дата отправки",
         help_text='Введите дату (ДД.ММ.ГГ)',
     )
+    end_date = models.DateField(
+        verbose_name="Дата окончания рассылки",
+        null=True, blank=True
+    )
     period = models.CharField(
         max_length=20,
         choices=PERIODS,
+        default='day',
         verbose_name='периодичность',
         help_text='Выберите периодичность',
     )
@@ -102,6 +113,7 @@ class Mailing(models.Model):
     status = models.CharField(
         max_length=20,
         choices=STATUSES,
+        default='created',
         verbose_name='статус',
     )
     user = models.ForeignKey(
@@ -110,6 +122,7 @@ class Mailing(models.Model):
         verbose_name='пользователь',
         null=True, blank=True
     )
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -117,7 +130,41 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = 'рассылка'
         verbose_name_plural = 'рассылки'
+        ordering = ("period",)
+        permissions = [
+            ("can_edit_is_active_mailing", "can edit active mailing"),
+        ]
 
 
-# class Log(models.Model):
-#     pass
+class Log(models.Model):
+    STATUSES = (
+        ("success", "success"),
+        ("fail", "fail"),
+    )
+    last_try = models.DateField(
+        auto_now_add=True,
+        verbose_name="Дата последней попытки рассылки"
+    )
+    status = models.CharField(
+        choices=STATUSES,
+        default="success",
+    verbose_name="Статус"
+    )
+    response = models.TextField(
+        verbose_name="Ответ",
+        null=True, blank=True,
+    )
+    mailing = models.ForeignKey(
+        Mailing,
+        on_delete=models.CASCADE,
+        related_name="mailings",
+        verbose_name="Рассылка",
+    )
+
+    class Meta:
+        verbose_name = "попытка рассылки"
+        verbose_name_plural = "попытки рассылки"
+        ordering = ("last_try",)
+
+    def __str__(self):
+        return f"{self.mailing}: {self.status}"
