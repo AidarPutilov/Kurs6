@@ -36,7 +36,6 @@ class Client(models.Model):
         ordering = ("fio",)
         permissions = [
             ("can_edit_is_active_client", "Can edit active clients"),
-            ("can_view_client_list", "Can view client list"),
         ]
 
 
@@ -130,6 +129,7 @@ class Mailing(models.Model):
         permissions = [
             ("can_edit_is_active_mailing", "Can edit active mailing"),
             ("can_change_clients_mailing", "Can change clients mailing"),
+            ("can_view_clients_mailing", "Can view clients mailing"),
         ]
 
 
