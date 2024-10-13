@@ -25,7 +25,10 @@ class Client(models.Model):
         null=True,
         blank=True,
     )
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name='активен'
+    )
 
     def __str__(self):
         return self.fio
