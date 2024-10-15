@@ -1,10 +1,13 @@
+from django.contrib.auth import user_logged_in
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from main.forms import ClientForm, MessageForm
+from main.forms import ClientForm,ClientModeratorForm,  MessageForm
 from main.models import Client, Mailing, Message
 
 
@@ -16,6 +19,9 @@ class ClientListView(LoginRequiredMixin, ListView):
     model = Client
 
 
+@login_required
+@permission_required('main.can_edit_is_active_client')
+# @permission_required('main.change_client')
 def toggle_client_active(request, pk):
     client_item = get_object_or_404(Client, pk=pk)
     client_item.is_active = not client_item.is_active
@@ -46,10 +52,23 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ClientForm
     success_url = reverse_lazy("main:clientlist")
 
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.user:
+            return ClientForm
+        elif user.has_perm("main.can_edit_is_active_client"):
+            return ClientModeratorForm
+        raise PermissionDenied
+
 
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
-    success_url = reverse_lazy("main:clientlist")
+    success_url= reverse_lazy("main:clientlist")
+
+    # def get_form_class(self):
+    #     user = self.request.user
+    #     if user != self.object.user:
+    #         raise PermissionDenied
 
 
 class MessageListView(LoginRequiredMixin, ListView):

@@ -7,6 +7,7 @@
     <a href="{% url 'main:create_client' %}">
         {% include 'include/plus.html' %}
     </a>
+    <p>main.change_client: {{ perms.main.edit_client }}</p>
 </h3>
 <table class="table">
     <thead>
@@ -16,6 +17,7 @@
         <th scope="col">Комментарий</th>
         <th scope="col">Актив</th>
         <th scope="col">Действия</th>
+        <th scope="col">Автор</th>
       </tr>
     </thead>
     <tbody>
@@ -29,23 +31,42 @@
         <td>{{ object.email }}</td>
         <td>{{ object.comment|truncatechars:100 }}</td>
         <td>
-            {% if object.is_active %}
-                <a href="{% url 'main:active_client' object.pk %}">
-                    {% include 'include/check.html' %}
-                </a>
+            {% if perms.main.can_edit_is_active_client or user == object.user %}
+                {% if object.is_active %}
+                    <a href="{% url 'main:active_client' object.pk %}">
+                        {% include 'include/check.html' %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'main:active_client' object.pk %}">
+                        {% include 'include/uncheck.html' %}
+                    </a>
+                {% endif %}
             {% else %}
-            <a href="{% url 'main:active_client' object.pk %}">
-                {% include 'include/uncheck.html' %}
-            </a>
+                {% if object.is_active %}
+                    {% include 'include/check.html' %}
+                {% else %}
+                    {% include 'include/uncheck.html' %}
+                {% endif %}
             {% endif %}
         </td>
         <td>
+            {% if perms.main.can_edit_is_active_client or user == object.user %}
             <a href="{% url 'main:update_client' object.pk %}">
                 {% include 'include/gear.html' %}
             </a>
+            {% comment %} {% else %}
+                {% include 'include/gear.html' %} {% endcomment %}
+            {% endif %}
+            {% if perms.main.edit_client or user == object.user %}
             <a href="{% url 'main:delete_client' object.pk %}">
                 {% include 'include/cross.html' %}
             </a>
+            {% comment %} {% else %}
+                {% include 'include/cross.html' %} {% endcomment %}
+            {% endif %}
+        </td>
+        <td>
+            {{ object.user }}
         </td>
       </tr>
       {% endfor %}
