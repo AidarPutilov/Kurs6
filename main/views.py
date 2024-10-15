@@ -23,8 +23,8 @@ def toggle_client_active(request, pk):
     return redirect(reverse('main:clientlist'))
 
 
-# class ClientDetailView(DetailView):
-#     model = Client
+class ClientDetailView(DetailView):
+    model = Client
 
 
 class ClientCreateView(LoginRequiredMixin, CreateView):

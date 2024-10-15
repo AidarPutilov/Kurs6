@@ -21,7 +21,11 @@
     <tbody>
       {% for object in object_list %}
       <tr>
-        <td>{{ object.fio }}</td>
+        <td>
+            <a href="{% url 'main:detail_client' object.pk %}">
+                {{ object.fio }}
+            </a>
+        </td>
         <td>{{ object.email }}</td>
         <td>{{ object.comment|truncatechars:100 }}</td>
         <td>

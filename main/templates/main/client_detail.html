@@ -20,6 +20,13 @@
                         <p class="mt-3 mb-4 text-center">
                             Комментарий: {{ object.comment }}
                         </p>
+                        <p class="mt-3 mb-4 text-center"r>
+                        {% if object.is_active %}
+                            {% include 'include/check.html' %} Активен
+                        {% else %}
+                            {% include 'include/uncheck.html' %} Нективен
+                        {% endif %}
+                        </p>
                         <a class="btn btn-success" href="{% url 'main:clientlist' %}">Выйти</a>
                     </div>
                 </div>
