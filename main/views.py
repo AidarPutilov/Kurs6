@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from main.forms import ClientForm, MessageForm
@@ -14,6 +14,13 @@ def index(request):
 
 class ClientListView(LoginRequiredMixin, ListView):
     model = Client
+
+
+def toggle_client_active(request, pk):
+    client_item = get_object_or_404(Client, pk=pk)
+    client_item.is_active = not client_item.is_active
+    client_item.save()
+    return redirect(reverse('main:clientlist'))
 
 
 # class ClientDetailView(DetailView):
