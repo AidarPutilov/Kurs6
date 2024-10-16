@@ -1,14 +1,14 @@
 from django import forms
 
-from main.models import Client, Message
+from main.models import Client, Mailing, Message
 
 
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
         # fields = '__all__'
-        # fields = ('email', 'fio', 'comment', 'is_active')
-        exclude = ('user',)
+        fields = ('email', 'fio', 'comment', 'is_active')
+        # exclude = ('user',)
 
 
 class ClientModeratorForm(forms.ModelForm):
@@ -24,4 +24,12 @@ class MessageForm(forms.ModelForm):
         model = Message
         # fields = '__all__'
         fields = ('subject', 'text',)
+        # exclude = ('in_stock',)
+
+
+class MailingForm(forms.ModelForm):
+    class Meta:
+        model = Mailing
+        # fields = '__all__'
+        fields = ('name', 'is_active',)
         # exclude = ('in_stock',)

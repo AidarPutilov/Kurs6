@@ -17,7 +17,7 @@
                             {% csrf_token %}
                             <p>Подтвердите удаление клиента "{{ object.fio }}"</p>
                             <button type="submit" class="btn btn-danger">Удалить</button>
-                            <a href="{% url 'main:clientlist' %}" class="btn btn-warning">Отмена</a>
+                            <a href="{% url 'main:list_client' %}" class="btn btn-warning">Отмена</a>
                         </form>
                     </div>
                 </div>

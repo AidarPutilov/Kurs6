@@ -7,7 +7,7 @@
     <a href="{% url 'main:create_client' %}">
         {% include 'include/plus.html' %}
     </a>
-    <p>main.change_client: {{ perms.main.edit_client }}</p>
+    {% comment %} <p>main.change_client: {{ perms.main.edit_client }}</p> {% endcomment %}
 </h3>
 <table class="table">
     <thead>

@@ -15,13 +15,13 @@
                 <a class="nav-link active" aria-current="page" href="/">Главная</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'main:clientlist' %}">Клиенты</a>
+                <a class="nav-link" href="{% url 'main:list_client' %}">Клиенты</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'main:listmessage' %}">Сообщения</a>
+                <a class="nav-link" href="{% url 'main:list_message' %}">Сообщения</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'main:listmailing' %}">Рассылки</a>
+                <a class="nav-link" href="{% url 'main:list_mailing' %}">Рассылки</a>
               </li>
             </ul>
             {% if user.is_authenticated %}

@@ -17,7 +17,7 @@
                             {% csrf_token %}
                             <p>Подтвердите удаление сообщения "{{ object.subject }}"</p>
                             <button type="submit" class="btn btn-danger">Удалить</button>
-                            <a href="{% url 'main:listmessage' %}" class="btn btn-warning">Отмена</a>
+                            <a href="{% url 'main:list_message' %}" class="btn btn-warning">Отмена</a>
                         </form>
                     </div>
                 </div>
