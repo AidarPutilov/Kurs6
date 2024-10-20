@@ -6,10 +6,10 @@ from django.core.mail import send_mail
 from django.http import request
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from config.settings import EMAIL_HOST_USER
-from users.forms import UserProfileForm, UserRegisterForm
+from users.forms import UserForm, UserProfileForm, UserRegisterForm
 from users.models import User
 
 
@@ -92,3 +92,15 @@ def toggle_user_active(request, pk):
 
 class UserDetailView(DetailView):
     model = User
+
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserForm
+    # permission_required = 'main.change_message'
+    success_url = reverse_lazy("users:list_users")
+
+
+class UserDeleteView(LoginRequiredMixin, DeleteView):
+    model = User
+    success_url = reverse_lazy("users:list_users")

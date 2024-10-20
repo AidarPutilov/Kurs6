@@ -43,20 +43,12 @@
             {% endif %}
         </td>
         <td>
-            {% comment %} {% if perms.main.can_edit_is_active_client or user == object.user %} {% endcomment %}
-            {% comment %} <a href="{% url 'main:update_client' object.pk %}"> {% endcomment %}
+            <a href="{% url 'users:update_users' object.pk %}">
                 {% include 'include/gear.html' %}
-            {% comment %} </a> {% endcomment %}
-            {% comment %} {% else %}
-                {% include 'include/gear.html' %} {% endcomment %}
-            {% comment %} {% endif %}
-            {% if perms.main.edit_client or user == object.user %}
-            <a href="{% url 'main:delete_client' object.pk %}"> {% endcomment %}
+            </a>
+            <a href="{% url 'users:delete_users' object.pk %}">
                 {% include 'include/cross.html' %}
-            {% comment %} </a> {% endcomment %}
-            {% comment %} {% else %}
-                {% include 'include/cross.html' %} {% endcomment %}
-            {% comment %} {% endif %} {% endcomment %}
+            </a>
         </td>
       </tr>
       {% endfor %}
