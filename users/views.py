@@ -1,10 +1,11 @@
 import secrets
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.http import request
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserProfileForm, UserRegisterForm
@@ -73,3 +74,7 @@ def password_reset(request):
         return redirect(reverse("users:login"))
 
     return render(request, template_name="users/password_reset.html")
+
+
+class UserListView(LoginRequiredMixin, ListView):
+    model = User
