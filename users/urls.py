@@ -5,6 +5,7 @@ from users.apps import UsersConfig
 from users.views import (
     ProfileView,
     UserCreateView,
+    UserDetailView,
     UserListView,
     email_verification,
     password_reset,
@@ -22,5 +23,6 @@ urlpatterns = [
     path("email-confirm/<str:token>/", email_verification, name="email-confirm"),
     path("password_reset/", password_reset, name="reset_password"),
     path("listusers/", UserListView.as_view(), name="list_users"),
-    path("usersactive/<int:pk>/", toggle_user_active, name="active_users"),
+    path("activeusers/<int:pk>/", toggle_user_active, name="active_users"),
+    path('detailusers/<int:pk>', UserDetailView.as_view(), name='detail_users'),
 ]

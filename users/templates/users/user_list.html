@@ -4,8 +4,6 @@
 {% block content %}
 <h3>
     Пользователи
-    {% comment %} {{perms.main.can_edit_is_active_user}} {% endcomment %}
-    {{perms.users.can_edit_is_active_user}}
 </h3>
 <table class="table">
     <thead>
@@ -20,7 +18,7 @@
       {% for object in object_list %}
       <tr>
         <td>
-            <a href="{% url 'users:profile' %}">
+            <a href="{% url 'users:detail_users' object.pk %}">
                 {{ object.name }}
             </a>
         </td>
@@ -45,8 +43,8 @@
             {% endif %}
         </td>
         <td>
-            {% comment %} {% if perms.main.can_edit_is_active_client or user == object.user %}
-            <a href="{% url 'main:update_client' object.pk %}"> {% endcomment %}
+            {% comment %} {% if perms.main.can_edit_is_active_client or user == object.user %} {% endcomment %}
+            {% comment %} <a href="{% url 'main:update_client' object.pk %}"> {% endcomment %}
                 {% include 'include/gear.html' %}
             {% comment %} </a> {% endcomment %}
             {% comment %} {% else %}

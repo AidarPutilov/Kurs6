@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.http import request
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserProfileForm, UserRegisterForm
@@ -90,4 +90,5 @@ def toggle_user_active(request, pk):
     return redirect(reverse('users:list_users'))
 
 
-
+class UserDetailView(DetailView):
+    model = User
