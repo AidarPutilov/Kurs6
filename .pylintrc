@@ -3,4 +3,5 @@ disable = import-outside-toplevel,
         missing-docstring,
         missing-module-docstring,
         missing-class-docstring,
-        too-few-public-methods
+        too-few-public-methods,
+        invalid-str-returned
