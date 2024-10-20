@@ -4,6 +4,8 @@
 {% block content %}
 <h3>
     Пользователи
+    {% comment %} {{perms.main.can_edit_is_active_user}} {% endcomment %}
+    {{perms.users.can_edit_is_active_user}}
 </h3>
 <table class="table">
     <thead>
@@ -24,15 +26,15 @@
         </td>
         <td>{{ object.email }}</td>
         <td>
-            {% if perms.main.can_edit_is_active_user %}
+            {% if perms.users.can_edit_is_active_user %}
                 {% if object.is_active %}
-                    {% comment %} <a href="{% url 'main:active_client' object.pk %}"> {% endcomment %}
+                    <a href="{% url 'users:active_users' object.pk %}">
                         {% include 'include/check.html' %}
-                    {% comment %} </a> {% endcomment %}
+                    </a>
                 {% else %}
-                    {% comment %} <a href="{% url 'main:active_client' object.pk %}"> {% endcomment %}
+                    <a href="{% url 'users:active_users' object.pk %}">
                         {% include 'include/uncheck.html' %}
-                    {% comment %} </a> {% endcomment %}
+                    </a>
                 {% endif %}
             {% else %}
                 {% if object.is_active %}
