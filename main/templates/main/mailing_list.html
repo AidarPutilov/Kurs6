@@ -4,14 +4,10 @@
 {% block content %}
 <h3>
     Рассылки
-    {% comment %} <a href="{% url 'main:create_message' %}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-add bg-light" viewBox="0 0 16 16">
-            <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z"/>
-            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5"/>
-        </svg>
-    </a> {% endcomment %}
+    <a href="{% url 'main:create_mailing' %}">
+        {% include 'include/plus.html' %}
+    </a>
 </h3>
-
 <table class="table">
     <thead>
       <tr>
@@ -83,25 +79,4 @@
       {% endfor %}
     </tbody>
 </table>
-
-{% comment %} <div class='row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3'>
-    {% for object in object_list %}
-        <div class='col'>
-            <div class="card mb-3 shadow-sm">
-            <div class="card-header py-3">
-                <h4 class='my-0 fw-normal'>{{ object.name }}</h4>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Момент начала рассылки: {{ object.date_start }} {{ object.time_start }}</li>
-                <li class="list-group-item">Периодичность: {{ object.period }}</li>
-                <li class="list-group-item">Сообщение: {{ object.message }}</li>
-                <li class="list-group-item">Клиенты: {{ object.clients }}</li>
-                <li class="list-group-item">Статус: {{ object.status }}</li>
-                <li class="list-group-item">Автор: {{ object.user }}</li>
-            </ul>
-        </div>
-    </div>
-{% endfor %}
-</div> {% endcomment %}
-
 {% endblock %}

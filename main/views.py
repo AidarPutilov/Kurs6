@@ -19,6 +19,10 @@ def index(request):
 class ClientListView(LoginRequiredMixin, ListView):
     model = Client
 
+    def get_queryset(self):
+        qs = Client.objects.filter(user=self.request.user)
+        return qs
+
 
 @login_required
 @permission_required('main.can_edit_is_active_client')
@@ -115,10 +119,18 @@ class MailingListView(LoginRequiredMixin, ListView):
 
 
 @login_required
-@permission_required('main.can_edit_is_active_mailing')
+# @permission_required('main.can_edit_is_active_mailing')
 # @permission_required('main.change_client')
 def toggle_mailing_active(request, pk):
+
+    current_user = request.user
+
     mailing_item = get_object_or_404(Mailing, pk=pk)
+    mailing_user = mailing_item.user
+
+    if current_user == mailing_user:
+        pass
+
     mailing_item.is_active = not mailing_item.is_active
     mailing_item.save()
     return redirect(reverse('main:list_mailing'))

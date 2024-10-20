@@ -120,7 +120,10 @@ class Mailing(models.Model):
         null=True,
         blank=True,
     )
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name='активен',
+    )
 
     def __str__(self):
         return self.name
@@ -128,7 +131,7 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = "рассылка"
         verbose_name_plural = "рассылки"
-        ordering = ("period",)
+        ordering = ("date_start", "time_start", )
         permissions = [
             ("can_edit_is_active_mailing", "Can edit active mailing"),
             ("can_change_clients_mailing", "Can change clients mailing"),

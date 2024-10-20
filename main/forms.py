@@ -31,5 +31,5 @@ class MailingForm(forms.ModelForm):
     class Meta:
         model = Mailing
         # fields = '__all__'
-        fields = ('name', 'is_active',)
+        fields = ('name', 'message', 'date_start', 'end_date', 'time_start', 'period', 'is_active',)
         # exclude = ('in_stock',)
