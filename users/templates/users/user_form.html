@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% comment %} {% load my_tags %} {% endcomment %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-
 <div class="col">
     <form method="post" enctype="multipart/formdata">
         <div class="row justify-content-center">
@@ -11,7 +9,7 @@
                 <div class="card">
                     <h3 class="card-title text-center mb-3">
                         {% if user.is_authenticated %}
-                        Профиль
+                        Профиль <br> {{ user.email }}
                         {% else %}
                         Регистрация
                         {% endif %}
@@ -36,5 +34,4 @@
         </div>
     </form>
 </div>
-
 {% endblock %}

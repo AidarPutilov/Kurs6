@@ -3,43 +3,36 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h3>
-    Клиенты
-    <a href="{% url 'main:create_client' %}">
-        {% include 'include/plus.html' %}
-    </a>
-    {% comment %} <p>main.change_client: {{ perms.main.edit_client }}</p> {% endcomment %}
+    Пользователи
 </h3>
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">ФИО</th>
+        <th scope="col">Имя</th>
         <th scope="col">Электронный адрес</th>
-        <th scope="col">Комментарий</th>
         <th scope="col">Актив</th>
         <th scope="col">Действия</th>
-        <th scope="col">Автор</th>
       </tr>
     </thead>
     <tbody>
       {% for object in object_list %}
       <tr>
         <td>
-            <a href="{% url 'main:detail_client' object.pk %}">
-                {{ object.fio }}
+            <a href="{% url 'users:profile' %}">
+                {{ object.name }}
             </a>
         </td>
         <td>{{ object.email }}</td>
-        <td>{{ object.comment|truncatechars:100 }}</td>
         <td>
-            {% if perms.main.can_edit_is_active_client or user == object.user %}
+            {% if perms.main.can_edit_is_active_user %}
                 {% if object.is_active %}
-                    <a href="{% url 'main:active_client' object.pk %}">
+                    {% comment %} <a href="{% url 'main:active_client' object.pk %}"> {% endcomment %}
                         {% include 'include/check.html' %}
-                    </a>
+                    {% comment %} </a> {% endcomment %}
                 {% else %}
-                    <a href="{% url 'main:active_client' object.pk %}">
+                    {% comment %} <a href="{% url 'main:active_client' object.pk %}"> {% endcomment %}
                         {% include 'include/uncheck.html' %}
-                    </a>
+                    {% comment %} </a> {% endcomment %}
                 {% endif %}
             {% else %}
                 {% if object.is_active %}
@@ -50,23 +43,20 @@
             {% endif %}
         </td>
         <td>
-            {% if perms.main.can_edit_is_active_client or user == object.user %}
-            <a href="{% url 'main:update_client' object.pk %}">
+            {% comment %} {% if perms.main.can_edit_is_active_client or user == object.user %}
+            <a href="{% url 'main:update_client' object.pk %}"> {% endcomment %}
                 {% include 'include/gear.html' %}
-            </a>
+            {% comment %} </a> {% endcomment %}
             {% comment %} {% else %}
                 {% include 'include/gear.html' %} {% endcomment %}
-            {% endif %}
+            {% comment %} {% endif %}
             {% if perms.main.edit_client or user == object.user %}
-            <a href="{% url 'main:delete_client' object.pk %}">
+            <a href="{% url 'main:delete_client' object.pk %}"> {% endcomment %}
                 {% include 'include/cross.html' %}
-            </a>
+            {% comment %} </a> {% endcomment %}
             {% comment %} {% else %}
                 {% include 'include/cross.html' %} {% endcomment %}
-            {% endif %}
-        </td>
-        <td>
-            {{ object.user }}
+            {% comment %} {% endif %} {% endcomment %}
         </td>
       </tr>
       {% endfor %}

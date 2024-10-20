@@ -8,13 +8,13 @@ from users.models import User
 class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ("email", "password1", "password2")
+        fields = ("email", "name", "password1", "password2")
 
 
 class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
-        fields = ("email",)
+        fields = ("name", )
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)

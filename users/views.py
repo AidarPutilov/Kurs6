@@ -1,4 +1,5 @@
 import secrets
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
@@ -78,3 +79,13 @@ def password_reset(request):
 
 class UserListView(LoginRequiredMixin, ListView):
     model = User
+
+
+@login_required
+@permission_required('main.can_edit_is_active_client')
+# @permission_required('main.change_client')
+def toggle_client_active(request, pk):
+    client_item = get_object_or_404(Client, pk=pk)
+    client_item.is_active = not client_item.is_active
+    client_item.save()
+    return redirect(reverse('main:list_client'))
