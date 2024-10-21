@@ -80,6 +80,10 @@ def password_reset(request):
 class UserListView(LoginRequiredMixin, ListView):
     model = User
 
+    def get_queryset(self):
+        qs = User.objects.exclude(is_superuser=True)
+        return qs
+
 
 @login_required
 @permission_required('users.can_edit_is_active_user')
