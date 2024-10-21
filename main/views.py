@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from main.forms import ClientForm,ClientModeratorForm,  MessageForm, MailingForm
+from main.forms import ClientForm, MessageForm, MailingForm
 from main.models import Client, Mailing, Message
 
 
@@ -25,8 +25,6 @@ class ClientListView(LoginRequiredMixin, ListView):
 
 
 @login_required
-@permission_required('main.can_edit_is_active_client')
-# @permission_required('main.change_client')
 def toggle_client_active(request, pk):
     client_item = get_object_or_404(Client, pk=pk)
     client_item.is_active = not client_item.is_active
@@ -58,14 +56,6 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
     # permission_required = 'main.change_client'
     success_url = reverse_lazy("main:list_client")
 
-    def get_form_class(self):
-        user = self.request.user
-        if user == self.object.user:
-            return ClientForm
-        elif user.has_perm("main.can_edit_is_active_client"):
-            return ClientModeratorForm
-        raise PermissionDenied
-
     def get_object(self, queryset=None):
         """Редактировать можно только свои записи клиентов"""
         self.object = super().get_object(queryset)
@@ -77,11 +67,6 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
     success_url= reverse_lazy("main:list_client")
-
-    # def get_form_class(self):
-    #     user = self.request.user
-    #     if user != self.object.user:
-    #         raise PermissionDenied
 
 
 class MessageListView(LoginRequiredMixin, ListView):

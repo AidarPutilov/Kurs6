@@ -11,14 +11,6 @@ class ClientForm(forms.ModelForm):
         # exclude = ('user',)
 
 
-class ClientModeratorForm(forms.ModelForm):
-    class Meta:
-        model = Client
-        # fields = '__all__'
-        fields = ('is_active',)
-        # exclude = ('user', )
-
-
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message

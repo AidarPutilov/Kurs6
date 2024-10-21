@@ -7,7 +7,6 @@
     <a href="{% url 'main:create_client' %}">
         {% include 'include/plus.html' %}
     </a>
-    {% comment %} <p>main.change_client: {{ perms.main.edit_client }}</p> {% endcomment %}
 </h3>
 <table class="table">
     <thead>
@@ -31,22 +30,14 @@
         <td>{{ object.email }}</td>
         <td>{{ object.comment|truncatechars:100 }}</td>
         <td>
-            {% if perms.main.can_edit_is_active_client or user == object.user %}
-                {% if object.is_active %}
-                    <a href="{% url 'main:active_client' object.pk %}">
-                        {% include 'include/check.html' %}
-                    </a>
-                {% else %}
-                    <a href="{% url 'main:active_client' object.pk %}">
-                        {% include 'include/uncheck.html' %}
-                    </a>
-                {% endif %}
-            {% else %}
-                {% if object.is_active %}
+            {% if object.is_active %}
+                <a href="{% url 'main:active_client' object.pk %}">
                     {% include 'include/check.html' %}
-                {% else %}
+                </a>
+            {% else %}
+                <a href="{% url 'main:active_client' object.pk %}">
                     {% include 'include/uncheck.html' %}
-                {% endif %}
+                </a>
             {% endif %}
         </td>
         <td>
