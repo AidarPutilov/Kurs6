@@ -135,7 +135,7 @@ class Mailing(models.Model):
         permissions = [
             ("can_edit_is_active_mailing", "Can edit active mailing"),
             ("can_change_clients_mailing", "Can change clients mailing"),
-            ("can_view_clients_mailing", "Can view clients mailing"),
+            # ("can_view_clients_mailing", "Can view clients mailing"),
         ]
 
 
