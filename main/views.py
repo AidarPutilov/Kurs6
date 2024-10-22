@@ -106,10 +106,12 @@ class MessageDeleteView(LoginRequiredMixin, DeleteView):
 class MailingListView(LoginRequiredMixin, ListView):
     model = Mailing
 
+    # def get_queryset(self):
+    #     qs = Mailing.objects.filter(user=self.request.user)
+    #     return qs
+
 
 @login_required
-# @permission_required('main.can_edit_is_active_mailing')
-# @permission_required('main.change_client')
 def toggle_mailing_active(request, pk):
 
     current_user = request.user
@@ -123,6 +125,10 @@ def toggle_mailing_active(request, pk):
     mailing_item.is_active = not mailing_item.is_active
     mailing_item.save()
     return redirect(reverse('main:list_mailing'))
+
+
+class MailingDetailView(DetailView):
+    model = Mailing
 
 
 class MailingCreateView(LoginRequiredMixin, CreateView):
@@ -139,12 +145,12 @@ class MailingCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-# class MailingUpdateView(LoginRequiredMixin, UpdateView):
-#     model = Mailing
-#     form_class = MailingForm
-#     success_url = reverse_lazy("main:listmailing")
+class MailingUpdateView(LoginRequiredMixin, UpdateView):
+    model = Mailing
+    form_class = MailingForm
+    success_url = reverse_lazy("main:list_mailing")
 
 
-# class MailingDeleteView(LoginRequiredMixin, DeleteView):
-#     model = Mailing
-#     success_url = reverse_lazy("main:listmailing")
+class MailingDeleteView(LoginRequiredMixin, DeleteView):
+    model = Mailing
+    success_url = reverse_lazy("main:list_mailing")

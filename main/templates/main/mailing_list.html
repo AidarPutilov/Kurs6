@@ -26,10 +26,13 @@
       {% for object in object_list %}
       <tr>
         <td>
-            {{ object.name }}
-            {% comment %} <a href="{% url 'main:detail_client' object.pk %}">
+            {% if perms.main.view_mailing or user == object.user %}
+            <a href="{% url 'main:detail_mailing' object.pk %}">
                 {{ object.name }}
-            </a> {% endcomment %}
+            </a>
+            {% else %}
+                {{ object.name }}
+            {% endif %}
         </td>
         <td>{{ object.date_start }} {{ object.time_start }}</td>
         <td>{{ object.end_date }}</td>
@@ -39,11 +42,11 @@
         <td>
             {% if perms.main.can_edit_is_active_mailing or user == object.user %}
             {% if object.is_active %}
-                <a href="{% url 'main:activemailing' object.pk %}">
+                <a href="{% url 'main:active_mailing' object.pk %}">
                     {% include 'include/check.html' %}
                 </a>
             {% else %}
-                <a href="{% url 'main:activemailing' object.pk %}">
+                <a href="{% url 'main:active_mailing' object.pk %}">
                     {% include 'include/uncheck.html' %}
                 </a>
             {% endif %}
@@ -57,19 +60,15 @@
         </td>
         </td>
         <td>
-            {% if perms.main.can_edit_is_active_client or user == object.user %}
-            {% comment %} <a href="{% url 'main:update_client' object.pk %}">
+            {% if user == object.user %}
+            <a href="{% url 'main:update_mailing' object.pk %}">
                 {% include 'include/gear.html' %}
-            </a> {% endcomment %}
-            {% comment %} {% else %}
-                {% include 'include/gear.html' %} {% endcomment %}
+            </a>
             {% endif %}
-            {% if perms.main.edit_client or user == object.user %}
-            {% comment %} <a href="{% url 'main:delete_client' object.pk %}">
+            {% if user == object.user %}
+            <a href="{% url 'main:delete_mailing' object.pk %}">
                 {% include 'include/cross.html' %}
-            </a> {% endcomment %}
-            {% comment %} {% else %}
-                {% include 'include/cross.html' %} {% endcomment %}
+            </a>
             {% endif %}
         </td>
         <td>

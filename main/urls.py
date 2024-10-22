@@ -1,7 +1,7 @@
 from django.urls import path
 
 from main.apps import MainConfig
-from main.views import ClientCreateView, ClientDeleteView, ClientDetailView, ClientListView, ClientUpdateView, MailingListView, MessageCreateView, MessageDeleteView, MessageListView, MessageUpdateView, index, toggle_client_active, toggle_mailing_active, MailingCreateView
+from main.views import ClientCreateView, ClientDeleteView, ClientDetailView, ClientListView, ClientUpdateView, MailingDeleteView, MailingDetailView, MailingListView, MailingUpdateView, MessageCreateView, MessageDeleteView, MessageListView, MessageUpdateView, index, toggle_client_active, toggle_mailing_active, MailingCreateView
 
 app_name = MainConfig.name
 
@@ -25,9 +25,9 @@ urlpatterns = [
 
     # Маршруты Mailing
     path('listmailing/', MailingListView.as_view(), name='list_mailing'),
-    path('activemailing/<int:pk>/', toggle_mailing_active, name='activemailing'),
-    # path('client/<int:pk>', ClientDetailView.as_view(), name='view_client'),
+    path('activemailing/<int:pk>/', toggle_mailing_active, name='active_mailing'),
+    path('detailmailing/<int:pk>', MailingDetailView.as_view(), name='detail_mailing'),
     path('createmailing/', MailingCreateView.as_view(), name='create_mailing'),
-    # path('updatemessage/<int:pk>', MailingUpdateView.as_view(), name='update_mailing'),
-    # path('deletemessage/<int:pk>', MailingDeleteView.as_view(), name='delete_mailing'),
+    path('updatemailing/<int:pk>', MailingUpdateView.as_view(), name='update_mailing'),
+    path('deletemailing/<int:pk>', MailingDeleteView.as_view(), name='delete_mailing'),
 ]
