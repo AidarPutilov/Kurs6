@@ -1,13 +1,10 @@
 # from django.contrib.auth import user_logged_in
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-# from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-from django.forms import inlineformset_factory
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -17,7 +14,7 @@ from django.views.generic import (
 )
 
 from main.forms import ClientForm, MessageForm, MailingForm
-from main.models import Client, Mailing, Message
+from main.models import Client, Log, Mailing, Message
 
 
 def index(request):
@@ -188,3 +185,7 @@ def toggle_mailing_client(request, mailing_pk, client_pk):
 class MailingDeleteView(LoginRequiredMixin, DeleteView):
     model = Mailing
     success_url = reverse_lazy("main:list_mailing")
+
+
+class LogListView(ListView):
+    model = Log

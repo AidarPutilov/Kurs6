@@ -161,6 +161,17 @@ class Log(models.Model):
         related_name="mailings",
         verbose_name="Рассылка",
     )
+    # client = models.ForeignKey(
+    #     Client,
+    #     on_delete=models.CASCADE,
+    #     related_name="clients",
+    #     verbose_name="Клиент",
+    # )
+    # message = models.ForeignKey(
+    #     Message,
+    #     on_delete=models.CASCADE,
+    #     verbose_name="Cообщение",
+    # )
 
     class Meta:
         verbose_name = "попытка рассылки"
@@ -168,4 +179,5 @@ class Log(models.Model):
         ordering = ("last_try",)
 
     def __str__(self):
-        return f"{self.mailing}: {self.status}"
+        # return f"{self.mailing}: {self.status}"
+        return f"{self.status}"

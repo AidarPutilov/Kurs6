@@ -25,9 +25,3 @@ class MailingForm(forms.ModelForm):
         # fields = '__all__'
         fields = ('name', 'message', 'date_start', 'end_date', 'time_start', 'period', 'is_active',)
         # exclude = ('in_stock',)
-
-
-# class ClientFormSet(forms.ModelForm):
-#     class Meta:
-#         model = Client
-#         fields = ('fio', 'is_active',)

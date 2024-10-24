@@ -7,6 +7,7 @@ from main.views import (
     ClientDetailView,
     ClientListView,
     ClientUpdateView,
+    LogListView,
     MailingDeleteView,
     MailingDetailView,
     MailingListView,
@@ -51,4 +52,6 @@ urlpatterns = [
         toggle_mailing_client,
         name="client_mailing",
     ),
+    # Маршруты Log
+    path("listlog/", LogListView.as_view(), name="view_log"),
 ]
