@@ -23,6 +23,9 @@
               <li class="nav-item">
                 <a class="nav-link active" href="{% url 'main:list_mailing' %}">Рассылки</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'main:list_log' %}">Логи</a>
+              </li>
               {% if user.is_authenticated and perms.users.can_view_users_list %}
               <li class="nav-item">
                 <a class="nav-link active" href="{% url 'users:list_users' %}">Пользователи</a>

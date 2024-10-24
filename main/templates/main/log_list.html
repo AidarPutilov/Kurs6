@@ -10,6 +10,7 @@
       <tr>
         <th scope="col">Дата</th>
         <th scope="col">Рассылка</th>
+        <th scope="col">Клиент</th>
         <th scope="col">Статус</th>
         <th scope="col">Ответ сервера</th>
       </tr>
@@ -17,43 +18,11 @@
     <tbody>
       {% for object in object_list %}
       <tr>
-        <td>
-            <a href="{% url 'main:detail_client' object.pk %}">
-                {{ object.fio }}
-            </a>
-        </td>
-        <td>{{ object.email }}</td>
-        <td>{{ object.comment|truncatechars:100 }}</td>
-        <td>
-            {% if object.is_active %}
-                <a href="{% url 'main:active_client' object.pk %}">
-                    {% include 'include/check.html' %}
-                </a>
-            {% else %}
-                <a href="{% url 'main:active_client' object.pk %}">
-                    {% include 'include/uncheck.html' %}
-                </a>
-            {% endif %}
-        </td>
-        <td>
-            {% if perms.main.can_edit_is_active_client or user == object.user %}
-            <a href="{% url 'main:update_client' object.pk %}">
-                {% include 'include/gear.html' %}
-            </a>
-            {% comment %} {% else %}
-                {% include 'include/gear.html' %} {% endcomment %}
-            {% endif %}
-            {% if perms.main.edit_client or user == object.user %}
-            <a href="{% url 'main:delete_client' object.pk %}">
-                {% include 'include/cross.html' %}
-            </a>
-            {% comment %} {% else %}
-                {% include 'include/cross.html' %} {% endcomment %}
-            {% endif %}
-        </td>
-        <td>
-            {{ object.user }}
-        </td>
+        <td>{{ object.last_try }}</td>
+        <td>{{ object.mailing }}</td>
+        <td>{{ object.client }}</td>
+        <td>{{ object.status }}</td>
+        <td>{{ object.response }}</td>
       </tr>
       {% endfor %}
     </tbody>

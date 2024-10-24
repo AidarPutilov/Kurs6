@@ -152,8 +152,7 @@ class Log(models.Model):
     )
     response = models.TextField(
         verbose_name="Ответ",
-        null=True,
-        blank=True,
+        null=True, blank=True,
     )
     mailing = models.ForeignKey(
         Mailing,
@@ -161,17 +160,11 @@ class Log(models.Model):
         related_name="mailings",
         verbose_name="Рассылка",
     )
-    # client = models.ForeignKey(
-    #     Client,
-    #     on_delete=models.CASCADE,
-    #     related_name="clients",
-    #     verbose_name="Клиент",
-    # )
-    # message = models.ForeignKey(
-    #     Message,
-    #     on_delete=models.CASCADE,
-    #     verbose_name="Cообщение",
-    # )
+    client = models.CharField(
+        max_length=150,
+        verbose_name='Клиент',
+        null=True, blank=True,
+    )
 
     class Meta:
         verbose_name = "попытка рассылки"

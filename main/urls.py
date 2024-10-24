@@ -53,5 +53,5 @@ urlpatterns = [
         name="client_mailing",
     ),
     # Маршруты Log
-    path("listlog/", LogListView.as_view(), name="view_log"),
+    path("listlog/", LogListView.as_view(), name="list_log"),
 ]
