@@ -28,6 +28,35 @@
                     </div>
                 </div>
             </div>
+            <div class="col-4">
+                <div class="card">
+                    <h3 class="card-title text-center mt-3 mb-3">
+                        Клиенты
+                    </h3>
+                    <div class="card-body">
+                        {{ object.clients }}
+                        {% for client in clients %}
+                            {% if client.user == object.user %}
+                            {% if client in object.clients.all %}
+                            <p>
+                                <a href="{% url 'main:client_mailing' object.pk client.pk %}">
+                                    {% include 'include/check.html' %}
+                                </a>
+                                    {{ client }}
+                                </p>
+                            {% else %}
+                                <p>
+                                <a href="{% url 'main:client_mailing' object.pk client.pk %}">
+                                    {% include 'include/uncheck.html' %}
+                                </a>
+                                    {{ client }}
+                                </p>
+                            {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>

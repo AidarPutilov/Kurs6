@@ -2,11 +2,19 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
+
 # from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+from django.forms import inlineformset_factory
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from main.forms import ClientForm, MessageForm, MailingForm
 from main.models import Client, Mailing, Message
@@ -29,7 +37,7 @@ def toggle_client_active(request, pk):
     client_item = get_object_or_404(Client, pk=pk)
     client_item.is_active = not client_item.is_active
     client_item.save()
-    return redirect(reverse('main:list_client'))
+    return redirect(reverse("main:list_client"))
 
 
 class ClientDetailView(DetailView):
@@ -60,13 +68,13 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
         """Редактировать можно только свои записи клиентов"""
         self.object = super().get_object(queryset)
         if self.object.user != self.request.user:
-            raise Http404('Доступ запрещён')
+            raise Http404("Доступ запрещён")
         return self.object
 
 
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
-    success_url= reverse_lazy("main:list_client")
+    success_url = reverse_lazy("main:list_client")
 
 
 class MessageListView(LoginRequiredMixin, ListView):
@@ -124,11 +132,16 @@ def toggle_mailing_active(request, pk):
 
     mailing_item.is_active = not mailing_item.is_active
     mailing_item.save()
-    return redirect(reverse('main:list_mailing'))
+    return redirect(reverse("main:list_mailing"))
 
 
 class MailingDetailView(DetailView):
     model = Mailing
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["clients"] = Client.objects.all()
+        return context
 
 
 class MailingCreateView(LoginRequiredMixin, CreateView):
@@ -149,6 +162,27 @@ class MailingUpdateView(LoginRequiredMixin, UpdateView):
     model = Mailing
     form_class = MailingForm
     success_url = reverse_lazy("main:list_mailing")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["clients"] = Client.objects.all()
+        return context
+
+
+@login_required
+def toggle_mailing_client(request, mailing_pk, client_pk):
+    '''Включение/выклчение клиента в списке рассылке на форме рассылки'''
+
+    mailing_item = get_object_or_404(Mailing, pk=mailing_pk)
+    client_item = get_object_or_404(Client, pk=client_pk)
+
+    if client_item in mailing_item.clients.all():
+        mailing_item.clients.remove(client_item)
+    else:
+        mailing_item.clients.add(client_item)
+
+    mailing_item.save()
+    return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 class MailingDeleteView(LoginRequiredMixin, DeleteView):
