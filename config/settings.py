@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'users',
     'crispy_forms',
     'crispy_bootstrap5',
-    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -156,7 +155,3 @@ EMAIL_USE_SSL = True
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-CRONJOBS = [
-    ('* * * * *', 'main.cron.job')
-]
