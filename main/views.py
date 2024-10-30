@@ -15,6 +15,7 @@ from django.views.generic import (
 
 from main.forms import ClientForm, MessageForm, MailingForm
 from main.models import Client, Log, Mailing, Message
+from main.task import send_mailing
 
 
 def index(request):
@@ -129,6 +130,15 @@ def toggle_mailing_active(request, pk):
 
     mailing_item.is_active = not mailing_item.is_active
     mailing_item.save()
+    return redirect(reverse("main:list_mailing"))
+
+
+@login_required
+def toggle_mailing_run(request, pk):
+
+    mailing_item = get_object_or_404(Mailing, pk=pk)
+    send_mailing(mailing_item)
+
     return redirect(reverse("main:list_mailing"))
 
 

@@ -50,7 +50,7 @@
                     {% include 'include/uncheck.html' %}
                 </a>
             {% endif %}
-        {% else %}
+            {% else %}
             {% if object.is_active %}
                 {% include 'include/check.html' %}
             {% else %}
@@ -61,6 +61,9 @@
         </td>
         <td>
             {% if user == object.user %}
+            <a href="{% url 'main:run_mailing' object.pk %}">
+                {% include 'include/run.html' %}
+            </a>
             <a href="{% url 'main:update_mailing' object.pk %}">
                 {% include 'include/gear.html' %}
             </a>

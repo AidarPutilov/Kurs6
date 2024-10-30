@@ -48,7 +48,7 @@ def send_mailing(mailing: Mailing):
 
     # Отправка писем по одному
     for email in emails:
-        client_str = f'{Client.objects.get(email=email)} ({email})'
+        client_str = f"{Client.objects.get(email=email)} ({email})"
         try:
             print(f"Send mail '{subject}' to {email}")
             # send_mail(
@@ -61,7 +61,6 @@ def send_mailing(mailing: Mailing):
             Log.objects.create(mailing=mailing, status="fail", client=client_str)
         else:
             Log.objects.create(mailing=mailing, client=client_str)
-        # Log.objects.create(mailing=mailing, client=f"{client}({client.email})")
 
 
 def send_mailings():
@@ -82,9 +81,9 @@ def send_mailings():
         mailing.status = "completed"
 
         # Обновление даты отправки
-        if mailing.period == 'week':
+        if mailing.period == "week":
             tdelta = timedelta(days=7)
-        elif mailing.period == 'mon':
+        elif mailing.period == "mon":
             tdelta = timedelta(days=30)
         else:
             tdelta = timedelta(days=1)

@@ -21,6 +21,7 @@ from main.views import (
     toggle_mailing_active,
     MailingCreateView,
     toggle_mailing_client,
+    toggle_mailing_run,
 )
 
 app_name = MainConfig.name
@@ -43,6 +44,7 @@ urlpatterns = [
     # Маршруты Mailing
     path("listmailing/", MailingListView.as_view(), name="list_mailing"),
     path("activemailing/<int:pk>/", toggle_mailing_active, name="active_mailing"),
+    path("runmailing/<int:pk>/", toggle_mailing_run, name="run_mailing"),
     path("detailmailing/<int:pk>", MailingDetailView.as_view(), name="detail_mailing"),
     path("createmailing/", MailingCreateView.as_view(), name="create_mailing"),
     path("updatemailing/<int:pk>", MailingUpdateView.as_view(), name="update_mailing"),

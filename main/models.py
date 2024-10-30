@@ -141,8 +141,8 @@ class Mailing(models.Model):
 
 class Log(models.Model):
     STATUSES = (
-        ("success", "success"),
-        ("fail", "fail"),
+        ("success", "Успешно"),
+        ("fail", "Ошибка"),
     )
     last_try = models.DateField(
         auto_now_add=True, verbose_name="Дата последней попытки рассылки"
