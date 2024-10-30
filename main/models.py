@@ -36,7 +36,7 @@ class Client(models.Model):
     class Meta:
         verbose_name = "клиент"
         verbose_name_plural = "клиенты"
-        ordering = ("fio",)
+        ordering = ["fio"]
         permissions = [
             ("can_edit_is_active_client", "Can edit active clients"),
         ]
@@ -61,7 +61,7 @@ class Message(models.Model):
     class Meta:
         verbose_name = "сообщение"
         verbose_name_plural = "сообщения"
-        ordering = ("subject",)
+        ordering = ["subject"]
 
 
 class Mailing(models.Model):
@@ -131,7 +131,7 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = "рассылка"
         verbose_name_plural = "рассылки"
-        ordering = ("date_start", "time_start", )
+        ordering = ["date_start", "time_start"]
         permissions = [
             ("can_edit_is_active_mailing", "Can edit active mailing"),
             ("can_change_clients_mailing", "Can change clients mailing"),
@@ -169,7 +169,7 @@ class Log(models.Model):
     class Meta:
         verbose_name = "попытка рассылки"
         verbose_name_plural = "попытки рассылки"
-        ordering = ("last_try",)
+        ordering = ["last_try"]
 
     def __str__(self):
         # return f"{self.mailing}: {self.status}"

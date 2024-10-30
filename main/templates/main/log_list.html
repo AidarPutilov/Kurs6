@@ -21,7 +21,7 @@
         <td>{{ object.last_try }}</td>
         <td>{{ object.mailing }}</td>
         <td>{{ object.client }}</td>
-        <td>{{ object.status }}</td>
+        <td>{{ object.get_status_display }}</td>
         <td>{{ object.response }}</td>
       </tr>
       {% endfor %}

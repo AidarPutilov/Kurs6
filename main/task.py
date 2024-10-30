@@ -3,7 +3,7 @@ from datetime import datetime, date, time, timedelta
 from django.conf.locale import el
 from django.core.mail import send_mail
 from config.settings import EMAIL_HOST_USER
-from main.models import Mailing, Log
+from main.models import Mailing, Log, Client
 
 
 def mailing_for_send():
@@ -42,12 +42,13 @@ def mailing_for_send():
 def send_mailing(mailing: Mailing):
     """Отправка рассылки"""
 
-    # message = mailing.message
     subject = mailing.message.subject
     text = mailing.message.text
     emails = mailing.clients.filter(is_active=True).values_list("email", flat=True)
 
+    # Отправка писем по одному
     for email in emails:
+        client_str = f'{Client.objects.get(email=email)} ({email})'
         try:
             print(f"Send mail '{subject}' to {email}")
             # send_mail(
@@ -57,9 +58,9 @@ def send_mailing(mailing: Mailing):
             #     recipient_list=[email],
             # )
         except:
-            Log.objects.create(mailing=mailing, status="fail", client=email)
+            Log.objects.create(mailing=mailing, status="fail", client=client_str)
         else:
-            Log.objects.create(mailing=mailing, client=email)
+            Log.objects.create(mailing=mailing, client=client_str)
         # Log.objects.create(mailing=mailing, client=f"{client}({client.email})")
 
 
@@ -81,10 +82,11 @@ def send_mailings():
         mailing.status = "completed"
 
         # Обновление даты отправки
-        tdelta = timedelta(days=1)
         if mailing.period == 'week':
             tdelta = timedelta(days=7)
-        else:
+        elif mailing.period == 'mon':
             tdelta = timedelta(days=30)
+        else:
+            tdelta = timedelta(days=1)
         mailing.date_start = date.today() + tdelta
         mailing.save()
