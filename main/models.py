@@ -169,7 +169,7 @@ class Log(models.Model):
     class Meta:
         verbose_name = "попытка рассылки"
         verbose_name_plural = "попытки рассылки"
-        ordering = ["last_try"]
+        ordering = ["-last_try"]
 
     def __str__(self):
         # return f"{self.mailing}: {self.status}"
