@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+
+{% block content %}
+
+<div class="col-12">
+    <h3>
+        Статьи
+        <a href="{% url 'blog:create_blog' %}">
+            {% include 'include/plus.html' %}
+        </a>
+    </h3>
+    <div class="row mb-3">
+        {% for object in object_list %}
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header fs-4 fw-bold">
+                    <a href="{% url 'blog:detail_blog' object.pk %}">{{ object.title }}</a>
+                    <a href="{% url 'blog:update_blog' object.pk %}">
+                        {% include 'include/gear.html' %}
+                    </a>
+                    <a href="{% url 'blog:delete_blog' object.pk %}">
+                        {% include 'include/cross.html' %}
+                    </a>
+                </div>
+                <div class="card-body">
+                    <p>{{ object.text|truncatechars:100 }}</p>
+                    <div class="btn-group" role="group">
+                        {% comment %} <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                Действия
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                       href="{% url 'blog:blog_update' object.pk %}">Редактировать</a></li>
+                                <li><a class="dropdown-item" href="{% url 'blog:blog_delete' object.pk %}">Удалить</a>
+                                </li>
+                            </ul>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
