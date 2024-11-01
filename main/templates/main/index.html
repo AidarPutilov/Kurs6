@@ -2,6 +2,39 @@
 
 {% block content %}
 
-Main page
-
+<h3>
+    Главная страница
+</h3>
+<h4>
+    Количество рассылок всего: {{ mailing_count }}
+</h4>
+<h4>
+    Количество активных рассылок: {{ active_mailing_count }}
+</h4>
+<h4>
+    Количество уникальных клиентов для рассылок: {{ unique_clients_count }}
+</h4>
+<h4>
+    Три случайные статьи из блога
+</h4>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Наименование</th>
+        <th scope="col">Текст</th>
+        <th scope="col">Количество просмотров</th>
+        <th scope="col">Дата публикации</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for blog in random_blogs %}
+      <tr>
+        <td>{{ blog.title }}</td>
+        <td>{{ blog.text|truncatechars:100 }}</td>
+        <td>{{ blog.view_counter }}</td>
+        <td>{{ blog.created_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

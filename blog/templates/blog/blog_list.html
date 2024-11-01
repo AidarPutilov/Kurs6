@@ -25,20 +25,6 @@
                 </div>
                 <div class="card-body">
                     <p>{{ object.text|truncatechars:100 }}</p>
-                    <div class="btn-group" role="group">
-                        {% comment %} <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                Действия
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"
-                                       href="{% url 'blog:blog_update' object.pk %}">Редактировать</a></li>
-                                <li><a class="dropdown-item" href="{% url 'blog:blog_delete' object.pk %}">Удалить</a>
-                                </li>
-                            </ul>
-                        </div> {% endcomment %}
-                    </div>
                 </div>
             </div>
         </div>

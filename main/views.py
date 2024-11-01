@@ -1,6 +1,7 @@
 # from django.contrib.auth import user_logged_in
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+import random
 
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,16 +11,25 @@ from django.views.generic import (
     DeleteView,
     DetailView,
     ListView,
+    TemplateView,
     UpdateView,
 )
 
+from blog.models import Blog
 from main.forms import ClientForm, MessageForm, MailingForm
 from main.models import Client, Log, Mailing, Message
 from main.task import send_mailing
 
 
-def index(request):
-    return render(request, "main/index.html")
+class MailingHome(TemplateView):
+    template_name = 'main/index.html'
+    extra_context = {
+        'title': 'Главная страница',
+        'mailing_count': Mailing.objects.all().count(),
+        'active_mailing_count': Mailing.objects.filter(is_active=True).count(),
+        'unique_clients_count': Client.objects.all().distinct().count(),
+        'random_blogs': random.sample(list(Blog.objects.all()), 3),
+    }
 
 
 class ClientListView(LoginRequiredMixin, ListView):

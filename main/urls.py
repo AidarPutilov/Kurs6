@@ -2,6 +2,7 @@ from django.urls import path
 
 from main.apps import MainConfig
 from main.views import (
+    MailingHome,
     ClientCreateView,
     ClientDeleteView,
     ClientDetailView,
@@ -16,7 +17,7 @@ from main.views import (
     MessageDeleteView,
     MessageListView,
     MessageUpdateView,
-    index,
+    # index,
     toggle_client_active,
     toggle_mailing_active,
     MailingCreateView,
@@ -27,7 +28,7 @@ from main.views import (
 app_name = MainConfig.name
 
 urlpatterns = [
-    path("", index, name="main"),
+    path("", MailingHome.as_view(), name="main"),
     # Маршруты Client
     path("listclient/", ClientListView.as_view(), name="list_client"),
     path("clientactive/<int:pk>/", toggle_client_active, name="active_client"),
