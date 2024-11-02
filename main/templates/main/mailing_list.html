@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% comment %} {% load my_tags %} {% endcomment %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h3>
+    Рассылки
+    <a href="{% url 'main:create_mailing' %}">
+        {% include 'include/plus.html' %}
+    </a>
+</h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Название</th>
+        <th scope="col">Дата, время отправки</th>
+        <th scope="col">Дата окончания отправки</th>
+        <th scope="col">Периодичность</th>
+        <th scope="col">Сообщение</th>
+        <th scope="col">Статус</th>
+        <th scope="col">Актив</th>
+        <th scope="col">Действия</th>
+        <th scope="col">Автор</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+      <tr>
+        <td>
+            {% if perms.main.view_mailing or user == object.user %}
+            <a href="{% url 'main:detail_mailing' object.pk %}">
+                {{ object.name }}
+            </a>
+            {% else %}
+                {{ object.name }}
+            {% endif %}
+        </td>
+        <td>{{ object.date_start }} {{ object.time_start }}</td>
+        <td>{{ object.end_date }}</td>
+        <td>{{ object.get_period_display }}</td>
+        <td>{{ object.message }}</td>
+        <td>{{ object.get_status_display }}</td>
+        <td>
+            {% if perms.main.can_edit_is_active_mailing or user == object.user %}
+            {% if object.is_active %}
+                <a href="{% url 'main:active_mailing' object.pk %}">
+                    {% include 'include/check.html' %}
+                </a>
+            {% else %}
+                <a href="{% url 'main:active_mailing' object.pk %}">
+                    {% include 'include/uncheck.html' %}
+                </a>
+            {% endif %}
+            {% else %}
+            {% if object.is_active %}
+                {% include 'include/check.html' %}
+            {% else %}
+                {% include 'include/uncheck.html' %}
+            {% endif %}
+        {% endif %}
+        </td>
+        </td>
+        <td>
+            {% if user == object.user %}
+            <a href="{% url 'main:run_mailing' object.pk %}">
+                {% include 'include/run.html' %}
+            </a>
+            <a href="{% url 'main:update_mailing' object.pk %}">
+                {% include 'include/gear.html' %}
+            </a>
+            {% endif %}
+            {% if user == object.user %}
+            <a href="{% url 'main:delete_mailing' object.pk %}">
+                {% include 'include/cross.html' %}
+            </a>
+            {% endif %}
+        </td>
+        <td>
+            {{ object.user }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

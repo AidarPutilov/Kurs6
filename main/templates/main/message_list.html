@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% comment %} {% load my_tags %} {% endcomment %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h3>
+    Сообщения
+    <a href="{% url 'main:create_message' %}">
+        {% include 'include/plus.html' %}
+    </a>
+</h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Тема</th>
+        <th scope="col">Текст</th>
+        <th scope="col">Действия</th>
+        <th scope="col">Автор</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+      <tr>
+        <td>{{ object.subject }}</td>
+        <td>{{ object.text|truncatechars:100 }}</td>
+        <td>
+            {% if object.user == user %}
+            <a href="{% url 'main:update_message' object.pk %}">
+                {% include 'include/gear.html' %}
+            </a>
+            <a href="{% url 'main:delete_message' object.pk %}">
+                {% include 'include/cross.html' %}
+            </a>
+            {% endif %}
+        </td>
+        <td>
+            {{ object.user }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% comment %} {% load my_tags %} {% endcomment %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col">
+    <form method="post" enctype="multipart/formdata">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="card">
+                    <h3 class="card-title text-center mt-3 mb-3">
+                        {% if object %}
+                        Редактирование рассылки
+                        {% else %}
+                        Создание рассылки
+                        {% endif %}
+                    </h3>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-success">
+                            {% if object %}
+                            Сохранить
+                            {% else %}
+                            Создать
+                            {% endif %}
+                        </button>
+                        <a class="btn btn-success" href="{% url 'main:list_mailing' %}">Отмена</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <h3 class="card-title text-center mt-3 mb-3">
+                        Клиенты
+                    </h3>
+                    <div class="card-body">
+                        {% for client in clients %}
+                            {% if client.user == object.user %}
+                            {% if client in object.clients.all %}
+                            <p>
+                                <a href="{% url 'main:client_mailing' object.pk client.pk %}">
+                                    {% include 'include/check.html' %}
+                                </a>
+                                    {{ client }}
+                                </p>
+                            {% else %}
+                                <p>
+                                <a href="{% url 'main:client_mailing' object.pk client.pk %}">
+                                    {% include 'include/uncheck.html' %}
+                                </a>
+                                    {{ client }}
+                                </p>
+                            {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% comment %} {% load my_tags %} {% endcomment %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h3>
+    Пользователи
+</h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Имя</th>
+        <th scope="col">Электронный адрес</th>
+        <th scope="col">Актив</th>
+        <th scope="col">Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+      <tr>
+        <td>
+            <a href="{% url 'users:detail_users' object.pk %}">
+                {{ object.name }}
+            </a>
+        </td>
+        <td>{{ object.email }}</td>
+        <td>
+            {% if perms.users.can_edit_is_active_user %}
+                {% if object.is_active %}
+                    <a href="{% url 'users:active_users' object.pk %}">
+                        {% include 'include/check.html' %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'users:active_users' object.pk %}">
+                        {% include 'include/uncheck.html' %}
+                    </a>
+                {% endif %}
+            {% else %}
+                {% if object.is_active %}
+                    {% include 'include/check.html' %}
+                {% else %}
+                    {% include 'include/uncheck.html' %}
+                {% endif %}
+            {% endif %}
+        </td>
+        <td>
+            <a href="{% url 'users:update_users' object.pk %}">
+                {% include 'include/gear.html' %}
+            </a>
+            <a href="{% url 'users:delete_users' object.pk %}">
+                {% include 'include/cross.html' %}
+            </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

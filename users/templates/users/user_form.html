@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% comment %} {% load my_tags %} {% endcomment %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col">
+    <form method="post" enctype="multipart/formdata">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="card">
+                    <h3 class="card-title text-center mb-3">
+                        {% if user.is_authenticated %}
+                        Профиль <br> {{ user.email }}
+                        {% else %}
+                        Регистрация
+                        {% endif %}
+                    </h3>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                            {% if user.is_authenticated %}
+                            <button type="submit" class="btn btn-success">
+                                Сохранить
+                            </button>
+                            <a class="btn btn-success" href="/">Отмена</a>
+                            {% else %}
+                            <button type="submit" class="btn btn-success">
+                                Зарегистрироваться
+                            </button>
+                            <a class="btn btn-success" href="/">Отмена</a>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

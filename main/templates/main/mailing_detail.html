@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% comment %} {% load my_tags %} {% endcomment %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col">
+    <form method="post" enctype="multipart/formdata">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="card">
+                    <h3 class="card-title text-center mt-3 mb-3">
+                        Рассылка {{ object.name }}
+                    </h3>
+                    <div class="card-body">
+                        <p>Дата, время отправки: {{ object.date_start }} {{ object.time_start }}</p>
+                        <p>Дата окончания отправки: {{ object.end_date }}</p>
+                        <p>Периодичность: {{ object.period }}</p>
+                        <p>Сообщение: {{ object.message }}</p>
+                        <p>Статус: {{ object.status }}</p>
+                        <p>Актив:
+                            {% if object.is_active %}
+                                {% include 'include/check.html' %}
+                            {% else %}
+                                {% include 'include/uncheck.html' %}
+                            {% endif %}
+                        </p>
+                        <p>Автор: {{ object.user }}</p>
+                        <a class="btn btn-success" href="{% url 'main:list_mailing' %}">Закрыть</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <h3 class="card-title text-center mt-3 mb-3">
+                        Клиенты
+                    </h3>
+                    <div class="card-body">
+                        {% for client in clients %}
+                            {% if client.user == object.user %}
+                            {% if client in object.clients.all %}
+                                <p>
+                                    {% include 'include/check.html' %}
+                                    {{ client }}
+                                </p>
+                            {% else %}
+                                <p>
+                                    {% include 'include/uncheck.html' %}
+                                    {{ client }}
+                                </p>
+                            {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
