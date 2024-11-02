@@ -57,6 +57,7 @@ python3 manage.py migrate
 ```
 
 #### Создание пользователей, групп и разрешений
+Пользователи: user@sky.com, man@sky.com, admin@sky.com. Пароль: 123
 ```
 python3 manage.py createusers
 ```
