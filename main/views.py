@@ -22,13 +22,17 @@ from main.task import send_mailing
 
 
 class MailingHome(TemplateView):
+    blogs = Blog.objects.all()
+    blog_counts = blogs.count()
+    random_counts = blog_counts if blog_counts < 3 else 3
+
     template_name = 'main/index.html'
     extra_context = {
         'title': 'Главная страница',
         'mailing_count': Mailing.objects.all().count(),
         'active_mailing_count': Mailing.objects.filter(is_active=True).count(),
         'unique_clients_count': Client.objects.all().distinct().count(),
-        'random_blogs': random.sample(list(Blog.objects.all()), 3),
+        'random_blogs': random.sample(list(blogs), random_counts),
     }
 
 
