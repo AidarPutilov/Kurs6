@@ -17,6 +17,7 @@
 - crispy-bootstrap5
 - django-apscheduler
 - redis
+- python-dotenv
 
 ### Инструкция для развертывания проекта
 
