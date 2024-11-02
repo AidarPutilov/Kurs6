@@ -25,36 +25,58 @@
 ### Инструкция для развертывания проекта
 
 #### Клонирование проекта:
+```
 git clone https://github.com/AidarPutilov/Kurs6.git
+```
 
 #### Переход в каталог
+```
 cd Kurs6
+```
 
 #### Базовые настройки
+```
 Ввести настройки django, сервера PostgreSQL, почтового сервиса, кеширования в файле .env.sample.
+```
 
 #### Создание базы данных
+```
 sudo -i -u postgres
 createdb kurs6aidar
+```
 
 #### Активация Poetry, установка пакетов
+```
 poetry shell
 poetry install
+```
 
 #### Применение миграций
+```
 python3 manage.py migrate
+```
 
 #### Создание пользователей, групп и разрешений
+```
 python3 manage.py createusers
+```
 
 #### Заполнение базы данных
+```
 python3 manage.py filldb
+```
 
 #### Запуск проекта
+```
 python3 manage.py runserver
+```
 
 #### Запуск задач по расписанию
+```
 python3 manage.py runapscheduler
+```
 
 #### Запуск задач разово с учётом расписания
+```
 python3 manage.py runonce
+```
