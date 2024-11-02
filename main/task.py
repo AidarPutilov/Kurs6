@@ -51,12 +51,12 @@ def send_mailing(mailing: Mailing):
         client_str = f"{Client.objects.get(email=email)} ({email})"
         try:
             print(f"Send mail '{subject}' to {email}")
-            # send_mail(
-            #     subject=subject,
-            #     message=text,
-            #     from_email=EMAIL_HOST_USER,
-            #     recipient_list=[email],
-            # )
+            send_mail(
+                subject=subject,
+                message=text,
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[email],
+            )
         except:
             Log.objects.create(mailing=mailing, status="fail", client=client_str)
         else:

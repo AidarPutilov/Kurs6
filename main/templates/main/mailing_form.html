@@ -34,7 +34,6 @@
                         Клиенты
                     </h3>
                     <div class="card-body">
-                        {{ object.clients }}
                         {% for client in clients %}
                             {% if client.user == object.user %}
                             {% if client in object.clients.all %}

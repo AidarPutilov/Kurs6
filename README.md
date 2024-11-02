@@ -46,3 +46,9 @@ python3 manage.py createusers
 
 #### Запуск проекта
 python3 manage.py runserver
+
+#### Запуск задач по расписанию
+python3 manage.py runapscheduler
+
+#### Запуск задач разово с учётом расписания
+python3 manage.py runonce
