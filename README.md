@@ -16,6 +16,7 @@
 - django-crispy-forms
 - crispy-bootstrap5
 - django-apscheduler
+- redis
 
 ### Инструкция для развертывания проекта
 
