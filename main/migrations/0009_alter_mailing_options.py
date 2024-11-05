@@ -6,12 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0008_alter_client_options_alter_mailing_options'),
+        ("main", "0008_alter_client_options_alter_mailing_options"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='mailing',
-            options={'ordering': ('period',), 'permissions': [('can_edit_is_active_mailing', 'Can edit active mailing'), ('can_change_clients_mailing', 'Can change clients mailing')], 'verbose_name': 'рассылка', 'verbose_name_plural': 'рассылки'},
+            name="mailing",
+            options={
+                "ordering": ("period",),
+                "permissions": [
+                    ("can_edit_is_active_mailing", "Can edit active mailing"),
+                    ("can_change_clients_mailing", "Can change clients mailing"),
+                ],
+                "verbose_name": "рассылка",
+                "verbose_name_plural": "рассылки",
+            },
         ),
     ]

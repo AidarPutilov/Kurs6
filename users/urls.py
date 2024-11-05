@@ -1,7 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import include, path
+from django.urls import path
 
-from main.views import ClientUpdateView
 from users.apps import UsersConfig
 from users.views import (
     ProfileView,
@@ -27,7 +26,7 @@ urlpatterns = [
     path("password_reset/", password_reset, name="reset_password"),
     path("listusers/", UserListView.as_view(), name="list_users"),
     path("activeusers/<int:pk>/", toggle_user_active, name="active_users"),
-    path('detailusers/<int:pk>', UserDetailView.as_view(), name='detail_users'),
-    path('updateusers/<int:pk>', UserUpdateView.as_view(), name='update_users'),
-    path('deleteusers/<int:pk>', UserDeleteView.as_view(), name='delete_users'),
+    path("detailusers/<int:pk>", UserDetailView.as_view(), name="detail_users"),
+    path("updateusers/<int:pk>", UserUpdateView.as_view(), name="update_users"),
+    path("deleteusers/<int:pk>", UserDeleteView.as_view(), name="delete_users"),
 ]

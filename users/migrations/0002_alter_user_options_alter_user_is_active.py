@@ -6,17 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='user',
-            options={'permissions': [('can_view_users_list', 'Can view users list'), ('can_edit_is_active_user', 'Can edit active user')], 'verbose_name': 'пользователь', 'verbose_name_plural': 'пользователи'},
+            name="user",
+            options={
+                "permissions": [
+                    ("can_view_users_list", "Can view users list"),
+                    ("can_edit_is_active_user", "Can edit active user"),
+                ],
+                "verbose_name": "пользователь",
+                "verbose_name_plural": "пользователи",
+            },
         ),
         migrations.AlterField(
-            model_name='user',
-            name='is_active',
-            field=models.BooleanField(default=True, verbose_name='активен'),
+            model_name="user",
+            name="is_active",
+            field=models.BooleanField(default=True, verbose_name="активен"),
         ),
     ]

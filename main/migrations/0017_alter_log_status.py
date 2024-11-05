@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0016_alter_log_options'),
+        ("main", "0016_alter_log_options"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='log',
-            name='status',
-            field=models.CharField(choices=[('success', 'Успешно'), ('fail', 'Ошибка')], default='success', verbose_name='Статус'),
+            model_name="log",
+            name="status",
+            field=models.CharField(
+                choices=[("success", "Успешно"), ("fail", "Ошибка")],
+                default="success",
+                verbose_name="Статус",
+            ),
         ),
     ]

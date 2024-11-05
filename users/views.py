@@ -1,12 +1,16 @@
 import secrets
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
-from django.http import request
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserForm, UserProfileForm, UserRegisterForm
@@ -24,9 +28,9 @@ class UserCreateView(CreateView):
         user.token = secrets.token_hex(16)
         user.save()
 
-        confirm_url = reverse('users:email-confirm', args=[user.token])
+        confirm_url = reverse("users:email-confirm", args=[user.token])
         host = self.request.get_host()
-        url = f'http://{host}{confirm_url}'
+        url = f"http://{host}{confirm_url}"
         # url = confirm_url
         send_mail(
             subject="Подтверждение почты",
@@ -67,7 +71,7 @@ def password_reset(request):
             user.set_password(new_password)
             user.save()
             send_mail(
-                subject=f"Сброс пароля",
+                subject="Сброс пароля",
                 message=f"Ваш новый пароль: {new_password}",
                 from_email=EMAIL_HOST_USER,
                 recipient_list=[email],
@@ -86,12 +90,12 @@ class UserListView(LoginRequiredMixin, ListView):
 
 
 @login_required
-@permission_required('users.can_edit_is_active_user')
+@permission_required("users.can_edit_is_active_user")
 def toggle_user_active(request, pk):
     user_item = get_object_or_404(User, pk=pk)
     user_item.is_active = not user_item.is_active
     user_item.save()
-    return redirect(reverse('users:list_users'))
+    return redirect(reverse("users:list_users"))
 
 
 class UserDetailView(DetailView):

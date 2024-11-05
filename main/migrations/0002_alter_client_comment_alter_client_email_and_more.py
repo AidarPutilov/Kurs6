@@ -6,23 +6,35 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0001_initial'),
+        ("main", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='client',
-            name='comment',
-            field=models.TextField(blank=True, help_text='Введите комментарий', null=True, verbose_name='комментарий'),
+            model_name="client",
+            name="comment",
+            field=models.TextField(
+                blank=True,
+                help_text="Введите комментарий",
+                null=True,
+                verbose_name="комментарий",
+            ),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='email',
-            field=models.EmailField(help_text='Введите электронный адрес клиента', max_length=254, unique=True, verbose_name='электронная почта'),
+            model_name="client",
+            name="email",
+            field=models.EmailField(
+                help_text="Введите электронный адрес клиента",
+                max_length=254,
+                unique=True,
+                verbose_name="электронная почта",
+            ),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='fio',
-            field=models.CharField(help_text='Введите ФИО клиента', max_length=100, verbose_name='ФИО'),
+            model_name="client",
+            name="fio",
+            field=models.CharField(
+                help_text="Введите ФИО клиента", max_length=100, verbose_name="ФИО"
+            ),
         ),
     ]

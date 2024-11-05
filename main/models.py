@@ -25,10 +25,7 @@ class Client(models.Model):
         null=True,
         blank=True,
     )
-    is_active = models.BooleanField(
-        default=True,
-        verbose_name='активен'
-    )
+    is_active = models.BooleanField(default=True, verbose_name="активен")
 
     def __str__(self):
         return self.fio
@@ -122,7 +119,7 @@ class Mailing(models.Model):
     )
     is_active = models.BooleanField(
         default=True,
-        verbose_name='активен',
+        verbose_name="активен",
     )
 
     def __str__(self):
@@ -152,7 +149,8 @@ class Log(models.Model):
     )
     response = models.TextField(
         verbose_name="Ответ",
-        null=True, blank=True,
+        null=True,
+        blank=True,
     )
     mailing = models.ForeignKey(
         Mailing,
@@ -162,8 +160,9 @@ class Log(models.Model):
     )
     client = models.CharField(
         max_length=150,
-        verbose_name='Клиент',
-        null=True, blank=True,
+        verbose_name="Клиент",
+        null=True,
+        blank=True,
     )
 
     class Meta:

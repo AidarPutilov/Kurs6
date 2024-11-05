@@ -6,24 +6,47 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0014_log_client'),
+        ("main", "0014_log_client"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='client',
-            options={'ordering': ['fio'], 'permissions': [('can_edit_is_active_client', 'Can edit active clients')], 'verbose_name': 'клиент', 'verbose_name_plural': 'клиенты'},
+            name="client",
+            options={
+                "ordering": ["fio"],
+                "permissions": [
+                    ("can_edit_is_active_client", "Can edit active clients")
+                ],
+                "verbose_name": "клиент",
+                "verbose_name_plural": "клиенты",
+            },
         ),
         migrations.AlterModelOptions(
-            name='log',
-            options={'ordering': ['last_try'], 'verbose_name': 'попытка рассылки', 'verbose_name_plural': 'попытки рассылки'},
+            name="log",
+            options={
+                "ordering": ["last_try"],
+                "verbose_name": "попытка рассылки",
+                "verbose_name_plural": "попытки рассылки",
+            },
         ),
         migrations.AlterModelOptions(
-            name='mailing',
-            options={'ordering': ['date_start', 'time_start'], 'permissions': [('can_edit_is_active_mailing', 'Can edit active mailing'), ('can_change_clients_mailing', 'Can change clients mailing')], 'verbose_name': 'рассылка', 'verbose_name_plural': 'рассылки'},
+            name="mailing",
+            options={
+                "ordering": ["date_start", "time_start"],
+                "permissions": [
+                    ("can_edit_is_active_mailing", "Can edit active mailing"),
+                    ("can_change_clients_mailing", "Can change clients mailing"),
+                ],
+                "verbose_name": "рассылка",
+                "verbose_name_plural": "рассылки",
+            },
         ),
         migrations.AlterModelOptions(
-            name='message',
-            options={'ordering': ['subject'], 'verbose_name': 'сообщение', 'verbose_name_plural': 'сообщения'},
+            name="message",
+            options={
+                "ordering": ["subject"],
+                "verbose_name": "сообщение",
+                "verbose_name_plural": "сообщения",
+            },
         ),
     ]

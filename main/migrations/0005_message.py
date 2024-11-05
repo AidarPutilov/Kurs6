@@ -8,22 +8,51 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0004_delete_massage'),
+        ("main", "0004_delete_massage"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Message',
+            name="Message",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('subject', models.CharField(help_text='Введите тему', max_length=100, verbose_name='тема сообщения')),
-                ('text', models.TextField(help_text='Введите текст', verbose_name='текст сообщения')),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='пользователь')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "subject",
+                    models.CharField(
+                        help_text="Введите тему",
+                        max_length=100,
+                        verbose_name="тема сообщения",
+                    ),
+                ),
+                (
+                    "text",
+                    models.TextField(
+                        help_text="Введите текст", verbose_name="текст сообщения"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'сообщение',
-                'verbose_name_plural': 'сообщения',
+                "verbose_name": "сообщение",
+                "verbose_name_plural": "сообщения",
             },
         ),
     ]

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 class User(AbstractUser):
     username = None
     email = models.EmailField(
@@ -10,20 +11,17 @@ class User(AbstractUser):
     )
     name = models.CharField(
         max_length=20,
-        verbose_name='имя',
+        verbose_name="имя",
         help_text="Введите имя",
         blank=True,
-        null=True
+        null=True,
     )
     token = models.CharField(
-        max_length=100,
-        verbose_name='токен',
-        blank=True,
-        null=True
+        max_length=100, verbose_name="токен", blank=True, null=True
     )
     is_active = models.BooleanField(
         default=True,
-        verbose_name='активен',
+        verbose_name="активен",
     )
 
     USERNAME_FIELD = "email"
@@ -32,7 +30,7 @@ class User(AbstractUser):
     class Meta:
         verbose_name = "пользователь"
         verbose_name_plural = "пользователи"
-        ordering = ("name", )
+        ordering = ("name",)
         permissions = [
             ("can_view_users_list", "Can view users list"),
             ("can_edit_is_active_user", "Can edit active user"),

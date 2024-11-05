@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0013_alter_mailing_options'),
+        ("main", "0013_alter_mailing_options"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='log',
-            name='client',
-            field=models.CharField(blank=True, max_length=150, null=True, verbose_name='Клиент'),
+            model_name="log",
+            name="client",
+            field=models.CharField(
+                blank=True, max_length=150, null=True, verbose_name="Клиент"
+            ),
         ),
     ]
