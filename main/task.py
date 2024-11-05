@@ -1,6 +1,5 @@
 from datetime import datetime, date, time, timedelta
 
-from django.conf.locale import el
 from django.core.mail import send_mail
 from config.settings import EMAIL_HOST_USER
 from main.models import Mailing, Log, Client

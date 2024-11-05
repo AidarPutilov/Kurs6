@@ -1,10 +1,9 @@
-# from django.contrib.auth import user_logged_in
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 import random
 
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -21,18 +20,28 @@ from main.models import Client, Log, Mailing, Message
 from main.task import send_mailing
 
 
-class MailingHome(TemplateView):
-    blogs = Blog.objects.all()
-    blog_counts = blogs.count()
-    random_counts = blog_counts if blog_counts < 3 else 3
+class MailingHome(LoginRequiredMixin, TemplateView):
+    try:
+        blogs = Blog.objects.all()
+        blog_counts = blogs.count()
+        random_count = blog_counts if blog_counts < 3 else 3
+        random_blogs = random.sample(list(blogs), random_count)
+        mailing_count = Mailing.objects.all().count()
+        active_mailing_count = Mailing.objects.filter(is_active=True).count()
+        unique_clients_count = Client.objects.all().distinct().count()
+    except:
+        mailing_count = 0
+        active_mailing_count = 0
+        unique_clients_count = 0
+        random_blogs = None
 
-    template_name = 'main/index.html'
+    template_name = "main/index.html"
     extra_context = {
-        'title': 'Главная страница',
-        'mailing_count': Mailing.objects.all().count(),
-        'active_mailing_count': Mailing.objects.filter(is_active=True).count(),
-        'unique_clients_count': Client.objects.all().distinct().count(),
-        'random_blogs': random.sample(list(blogs), random_counts),
+        "title": "Главная страница",
+        "mailing_count": mailing_count,
+        "active_mailing_count": active_mailing_count,
+        "unique_clients_count": unique_clients_count,
+        "random_blogs": random_blogs,
     }
 
 
@@ -192,7 +201,7 @@ class MailingUpdateView(LoginRequiredMixin, UpdateView):
 
 @login_required
 def toggle_mailing_client(request, mailing_pk, client_pk):
-    '''Включение/выклчение клиента в списке рассылке на форме рассылки'''
+    """Включение/выклчение клиента в списке рассылке на форме рассылки"""
 
     mailing_item = get_object_or_404(Mailing, pk=mailing_pk)
     client_item = get_object_or_404(Client, pk=client_pk)

@@ -16,13 +16,15 @@ class Command(BaseCommand):
 
         # Список групп [('название', ('пользователи',), ('разрешения',))]
         groups_list = [
-            ("Manager",
+            (
+                "Manager",
                 ("Manager",),
-                ("can_view_users_list",
-                 "can_edit_is_active_user",
-                 "can_edit_is_active_mailing",
-                 "view_mailing",
-                 )
+                (
+                    "can_view_users_list",
+                    "can_edit_is_active_user",
+                    "can_edit_is_active_mailing",
+                    "view_mailing",
+                ),
             )
         ]
 
@@ -38,7 +40,6 @@ class Command(BaseCommand):
                 # perms = Permission.objects.get(codename="can_view_users_list")
                 perms = Permission.objects.get(codename=group_perm)
                 group.permissions.add(perms)
-
 
         # Создание пользователей
         for user_item in users_list:

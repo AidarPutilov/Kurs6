@@ -18,6 +18,7 @@ def my_job():
 
     send_mailings()
 
+
 @util.close_old_connections
 def delete_old_job_executions(max_age=604_800):
     """

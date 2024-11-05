@@ -1,4 +1,3 @@
-
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
@@ -14,17 +13,17 @@ class UserRegisterForm(UserCreationForm):
 class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
-        fields = ("name", )
+        fields = ("name",)
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.fields['password'].widget = forms.HiddenInput()
+        self.fields["password"].widget = forms.HiddenInput()
 
 
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
         # fields = '__all__'
-        fields = ('name', 'is_active')
+        fields = ("name", "is_active")
         # exclude = ('user',)
