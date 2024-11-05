@@ -20,18 +20,28 @@ from main.models import Client, Log, Mailing, Message
 from main.task import send_mailing
 
 
-class MailingHome(TemplateView):
-    blogs = Blog.objects.all()
-    blog_counts = blogs.count()
-    random_counts = blog_counts if blog_counts < 3 else 3
+class MailingHome(LoginRequiredMixin, TemplateView):
+    try:
+        blogs = Blog.objects.all()
+        blog_counts = blogs.count()
+        random_count = blog_counts if blog_counts < 3 else 3
+        random_blogs = random.sample(list(blogs), random_count)
+        mailing_count = Mailing.objects.all().count()
+        active_mailing_count = Mailing.objects.filter(is_active=True).count()
+        unique_clients_count = Client.objects.all().distinct().count()
+    except:
+        mailing_count = 0
+        active_mailing_count = 0
+        unique_clients_count = 0
+        random_blogs = None
 
     template_name = "main/index.html"
     extra_context = {
         "title": "Главная страница",
-        "mailing_count": Mailing.objects.all().count(),
-        "active_mailing_count": Mailing.objects.filter(is_active=True).count(),
-        "unique_clients_count": Client.objects.all().distinct().count(),
-        "random_blogs": random.sample(list(blogs), random_counts),
+        "mailing_count": mailing_count,
+        "active_mailing_count": active_mailing_count,
+        "unique_clients_count": unique_clients_count,
+        "random_blogs": random_blogs,
     }
 
 

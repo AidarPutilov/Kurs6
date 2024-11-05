@@ -10,4 +10,7 @@ class MainConfig(AppConfig):
         from main.task import send_mailings
 
         sleep(2)
-        send_mailings()
+        try:
+            send_mailings()
+        except:
+            pass

@@ -42,7 +42,7 @@ cd Kurs6
 #### Создание базы данных
 ```
 sudo -i -u postgres
-createdb kurs6aidar
+createdb kurs6
 ```
 
 #### Активация Poetry, установка пакетов
